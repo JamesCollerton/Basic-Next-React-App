@@ -1,15 +1,37 @@
-import React, { FC } from 'react';
+import { Literata } from 'next/font/google';
+import React from 'react';
 
-// Here we create our list. Notice we need to
-// tell React that it is a Functional Component
-// in order for it to render.
-const List: FC = () => {
+// We declare an interface so that TypeScript
+// knows what kind of props we are expecting.
+interface ListItems {
+  items: Array<number>
+}
+
+let renderTimes = 1;
+
+// Now we take in our list of items 
+const List = (listItems: ListItems) => {
+
+  console.log(`This is render number ${renderTimes}`)
+  renderTimes++
+
+  if(listItems.items.length < 5) {
+    listItems.items.push(0)
+  }
+
+  // Here we map out each of our list items
+  // to JSX, which we can later render.
+  const listItemsLi = listItems.items.map(num => <li key={num}>{num}</li>)
+
   return (
     <>
-      {/* We return some JSX code, which is
-      then translated into browser-appropriate
-      languages */}
-      <h1>Our list goes here!</h1>
+      <div>
+        <h1>Our list goes here!</h1>
+        {/* Here we render all of our list items */}
+        <ul>
+          {listItemsLi}
+        </ul>
+      </div>
     </>
   );
 };
