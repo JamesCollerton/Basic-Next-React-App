@@ -3,6 +3,10 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@component/styles/Home.module.css'
 import List from '@component/components/List'
+import ParentComponent from '@component/components/EventHandlers'
+import Refs from '@component/components/Refs'
+import Effects from '@component/components/Effects'
+import LevelOne from '@component/components/Context'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,6 +21,10 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <List items={[1, 2, 3, 4]}></List>
+        <ParentComponent></ParentComponent>
+        <Refs></Refs>
+        <Effects></Effects>
+        <LevelOne></LevelOne>
       </main>
     </>
   )

@@ -1,5 +1,4 @@
-import { Literata } from 'next/font/google';
-import React from 'react';
+import React, { useState } from 'react';
 
 // We declare an interface so that TypeScript
 // knows what kind of props we are expecting.
@@ -7,21 +6,25 @@ interface ListItems {
   items: Array<number>
 }
 
-let renderTimes = 1;
-
 // Now we take in our list of items 
 const List = (listItems: ListItems) => {
 
-  console.log(`This is render number ${renderTimes}`)
-  renderTimes++
+  // Here we introduce our state, along with a
+  // method for updating it.
+  const [items, setItems] = useState(listItems.items)
 
-  if(listItems.items.length < 5) {
-    listItems.items.push(0)
+  // Here we introduce our event handler. Notice how
+  // we use the state mutation function and concat to
+  // change the array, we don't mutate the array directly.
+  // Instead we create a new array and pass it to the
+  // mutation function.
+  const handleClick = () => {
+    setItems(items.concat(Math.random()))
   }
 
   // Here we map out each of our list items
   // to JSX, which we can later render.
-  const listItemsLi = listItems.items.map(num => <li key={num}>{num}</li>)
+  const listItemsLi = items.map(num => <li key={num}>{num}</li>)
 
   return (
     <>
@@ -31,6 +34,12 @@ const List = (listItems: ListItems) => {
         <ul>
           {listItemsLi}
         </ul>
+        {/* Now we pass the handler, and have it triggered
+        when we click the button. Recognise we are passing
+        a reference to the method, not calling it! */}
+        <button onClick={handleClick}>
+          Add an item!
+        </button>
       </div>
     </>
   );
